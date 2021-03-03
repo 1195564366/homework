@@ -23,7 +23,7 @@ const routes = [{
             title: "AGENT",
             icon: "sitemap"
         },
-        component: () => import( /* webpackChunkName: "Agent" */ '@/pages/Agent'),
+        component: () => import( /* webpackChunkName: "Agent" */ '@/pages/Agent/Index'),
     }, {
         path: 'mycruse',
         name: 'mycruse',

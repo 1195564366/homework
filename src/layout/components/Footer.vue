@@ -15,7 +15,8 @@ export default {
         text-align: center;
         height: 30px;
         line-height: 30px;
-        box-shadow: @defaultShadow;
+        box-shadow: 0px -3px 5px 0px rgba(0, 0, 0, 0.2);;
+        z-index: 2;
     }
 }
 </style>

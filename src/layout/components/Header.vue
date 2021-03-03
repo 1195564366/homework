@@ -36,6 +36,7 @@ export default {};
     padding: 0 100px;
     display: flex;
     align-items: center;
+    z-index: 1;
   }
   &-logo {
     flex: 1;
