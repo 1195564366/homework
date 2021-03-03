@@ -22,15 +22,19 @@
         </span>
       </div>
       <div class="list-item-resources">
-        <span class="icon-plus list-item-icon list-item-resources-add" @click="onAdd" ref="AddBtn"/>
-        <span
-          class="list-item-resources-item"
-          v-for="(item, index) in agent.resources"
-          :key="index"
-        >
-          {{ item }}
-          <span class="icon-trash del-icon" @click="onDel(item)"/>
-        </span>
+        <div class="list-item-resources-left">
+          <span class="icon-plus list-item-icon list-item-resources-add" @click="onAdd" ref="AddBtn"/>
+        </div>
+        <div class="list-item-resources-right">
+          <span
+            class="list-item-resources-item"
+            v-for="(item, index) in agent.resources"
+            :key="index"
+          >
+            {{ item }}
+            <span class="icon-trash del-icon" @click="onDel(item)"/>
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -98,6 +102,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-content: center;
+    margin-bottom: 30px;
   }
   &-name {
     color: @themeColor;
@@ -121,6 +126,13 @@ export default {
     margin-left: 5px;
   }
   &-resources {
+    display: flex;
+    justify-items: center;
+    align-items: center; 
+    &-left {}
+    &-right {
+      flex: 1;
+    }
     &-add {
       display: inline-block;
       min-width: 25px;
@@ -142,6 +154,7 @@ export default {
       background-color: #efefef;
       height: 20px;
       line-height: 20px;
+      margin-top: 5px;
       .del-icon {
           cursor: pointer;
       }
