@@ -4,7 +4,7 @@
     :class="show && 'show'"
     @click="onClose"
   >
-    <div class="add-wrap" :style="popStyle" @click.stop>
+    <div class="add-wrap" :style="popStyle" :class="type" @click.stop>
       <span class="add-wrap-close icon-close" @click="onClose"/>
       <div class="title">Separate multiple resource name whith commas</div>
       <div class="input-wrap">
@@ -26,7 +26,8 @@ export default {
       show: false,
       value: '',
       top: 0,
-      left: 0
+      left: 0,
+      type: null
     };
   },
   computed: {
@@ -39,9 +40,17 @@ export default {
   },
   methods: {
     open (agent, x, y) {
+      const { clientHeight } = document.body;
+      const PopHeight = 190;
+      let top = x + 45,
+          left = y - 18;
       const { resources, id } = agent;
-      this.top = x + 45;
-      this.left = y - 18;
+      if (top + PopHeight > clientHeight) {
+        top = top - PopHeight - 45;
+        this.type = 'uper'
+      }
+      this.top = top;
+      this.left = left;
       this.value = resources.join(',');
       this.id = id;
       this.show = true;
@@ -52,6 +61,7 @@ export default {
       this.onClose();
     },
     onClose () {
+      this.type = '';
       this.value = '';
       this.show = false
     }
@@ -104,6 +114,18 @@ export default {
       line-height: 0;
       top: -16px;
       border-bottom: 18px solid #fff;
+    }
+    &.uper {
+      &::before {
+        top: auto;
+        bottom: -18px;
+        transform: rotate(180deg);
+      }
+      &::after {
+        bottom: -16px;
+        top: auto;
+        transform: rotate(180deg);
+      }
     }
     &-close {
       position: absolute;
