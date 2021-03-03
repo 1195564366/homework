@@ -3,19 +3,28 @@
       <div class="history-title">
           History
       </div>
-      <div class="history-content">
-          <div class="history-item">
-              
-          </div>
-      </div>
+      <ul class="history-content">
+          <li class="history-item" v-for="(item, index) in historyList" :key="index">
+              {{ item }}
+          </li>
+      </ul>
   </div>
 </template>
 
 <script>
 export default {
-  computed: {
-    historyList () {
-        return ['/agent']
+  data () {
+    return {
+      historyList: []
+    }
+  },
+  watch: {
+    '$route' (val) {
+      // 当前路由
+      if (this.historyList.length > 10) {
+        this.historyList.pop();
+      }
+      this.historyList.unshift(val.path)
     }
   }
 }
@@ -29,7 +38,17 @@ export default {
     &-title {
         color: @historyTitleColor;
         font-size: @historyTitleFontSize;
-        margin-left: 30px;
+        margin-left: 15px;
+    }
+    &-content {}
+    &-item {
+      color: @historyItemColor;
+      font-size: @historyItemFontSize;
+      cursor: pointer;
+      margin-bottom: 12px;
+      &:hover {
+        color: @themeColor;
+      }
     }
 }
 </style>

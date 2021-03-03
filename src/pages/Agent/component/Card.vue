@@ -1,7 +1,7 @@
 <template>
   <div class="card-wrap" :style="{backgroundColor: color}">
       <div class="card-title">{{ title }}</div>
-      <span class="card-icon" :class="`icon-${icon}`"></span>
+      <span class="card-icon" :class="`icon-${icon} ${rotate && 'rotate'}`"></span>
       <div class="card-num">{{ num }}</div>
   </div>
 </template>
@@ -22,6 +22,14 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
 .card {
     &-wrap {
         flex: 1;
@@ -45,6 +53,10 @@ export default {
         transform: translateX(-50%);
         font-size: @topBlockIconSize;
         opacity: @topBlockIconOpacity;
+        &.rotate {
+            left: 35%;
+            animation: rotate 2s linear infinite;
+        }
     }
     &-num {
         position: absolute;

@@ -1,10 +1,20 @@
 <template>
   <div class="agent-wrap">
     <div class="agent-top">
-      <Card title="Building" :num="3" icon="cog" color="#ff9a2a"/>
-      <Card title="IdIe" :num="5" icon="coffee" color="#7fbc39"/>
+      <Card
+        title="Building"
+        :num="cardNum('building')"
+        icon="cog"
+        :rotate="true"
+        color="#ff9a2a"
+      />
+      <Card title="Idle" :num="cardNum('idle')" icon="coffee" color="#7fbc39" />
       <div class="agent-top-main">
-        <div class="agent-top-main-item" v-for="(item, index) in tabData" :key="index">
+        <div
+          class="agent-top-main-item"
+          v-for="(item, index) in tabData"
+          :key="index"
+        >
           <div class="agent-top-main-item__title">{{ item.label }}</div>
           <div class="agent-top-main-item__value">{{ item.value }}</div>
         </div>
@@ -12,7 +22,7 @@
     </div>
     <div class="agent-middle">
       <div class="agent-middle-left">
-        <div 
+        <div
           class="agent-middle-left-item"
           :class="index === tabIndex && 'agent-middle-left-item__active'"
           v-for="(item, index) in tabData"
@@ -25,18 +35,32 @@
       <div class="agent-middle-middle">
         <div class="agent-middle-middle__search">
           <span class="icon-search agent-middle-middle__search-icon" />
-          <input type="text" class="agent-middle-middle__search-input">
+          <input type="text" class="agent-middle-middle__search-input" />
         </div>
       </div>
       <div class="agent-middle-right">
-        <span class="icon-th-card icon" :class="listType === 'card' && 'active'" @click="listType = 'card'" />
-        <span class="icon-th-list icon" :class="listType === 'list' && 'active'" @click="listType = 'list'" />
+        <span
+          class="icon-th-card icon"
+          :class="listType === 'card' && 'active'"
+          @click="listType = 'card'"
+        />
+        <span
+          class="icon-th-list icon"
+          :class="listType === 'list' && 'active'"
+          @click="listType = 'list'"
+        />
       </div>
     </div>
     <div class="agent-bottom">
-      <ListItem v-for="item in list" :key="item.id" :agent="item" @onDel="onDel" @onAdd="onAdd"/>
+      <ListItem
+        v-for="item in list"
+        :key="item.id"
+        :agent="item"
+        @onDel="onDel"
+        @onAdd="onAdd"
+      />
     </div>
-    <AddPop ref="AddPop" @onSubmit="onSubmit"/>
+    <AddPop ref="AddPop" @onSubmit="onSubmit" />
   </div>
 </template>
 
@@ -56,17 +80,21 @@ export default {
     return {
       listType: 'list',
       tabIndex: 0,
-      tabData: [{
+      list: []
+    }
+  },
+  computed: {
+    tabData () {
+      return  [{
         label: 'All',
-        value: 8
+        value: this.list.length
       }, {
         label: "Physical",
-        value: 4
+        value: this.list.filter(item => item.type === 'physical').length
       }, {
         label: "Virtual",
-        value: 4
-      }],
-      list: []
+        value: this.list.filter(item => item.type === 'virtual').length
+      }]
     }
   },
   async mounted () {
@@ -74,6 +102,9 @@ export default {
     this.list = result;
   },
   methods: {
+    cardNum (type) {
+      return this.list.filter(item => item.status === type).length;
+    },
     onSubmit (id, resources) {
       const index = this.list.findIndex(item => item.id === id);
       this.list[index].resources = resources;
@@ -130,7 +161,7 @@ export default {
       &-item {
         width: 82px;
         text-align: center;
-        border-right: 1px solid #F3F3F3;
+        border-right: 1px solid #f3f3f3;
         cursor: pointer;
         &__active {
           border-bottom: @menuBorder;
@@ -144,7 +175,7 @@ export default {
         margin: 10px 30px;
         display: inline-flex;
         align-items: center;
-        background-color: #F3F3F3;
+        background-color: #f3f3f3;
         &-icon {
           font-size: 20px;
           margin-right: 10px;
@@ -152,7 +183,7 @@ export default {
         &-input {
           border: none;
           outline: none;
-          background-color: #F3F3F3;
+          background-color: #f3f3f3;
           font-size: 14px;
         }
       }

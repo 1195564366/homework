@@ -24,7 +24,7 @@ export default {
     }
     &-right {
         padding: 18px 10px 18px 30px;
-        height: calc(100vh - 40px - 30px);
+        height: calc(100vh - 60px - 30px);
         box-sizing: border-box;
         overflow-y: auto;
     }

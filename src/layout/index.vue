@@ -22,6 +22,7 @@ export default {
 <style lang="less" scoped>
 #layout {
     height: 100vh;
+    min-width: 1440px;
     display: flex;
     flex-direction: column;
 }
